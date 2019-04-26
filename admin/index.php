@@ -1,6 +1,20 @@
 <?php
 require_once 'scripts/config.php';
 confirm_logged_in();
+
+
+// if (!isset($_COOKIE['firsttime']))
+// {
+//     setcookie("firsttime", "no");
+//     header('Location: admin_edituser.php');
+//     exit();
+// }
+// else
+// {
+//     redirect_to('Location: index.php');
+//     // exit();
+// }
+
 ?>
 
 <!DOCTYPE html>
@@ -19,7 +33,7 @@ confirm_logged_in();
     <nav>
         <ul>
             <li><a href="admin_createuser.php">Create User</a></li>
-            <li><a href="#">Edit User</a></li>
+            <li><a href="admin_edituser.php">Edit User</a></li>
             <li><a href="#">Delete User</a></li>
             <li><a href="scripts/caller.php?caller_id=logout">Sign Out</a></li>
         </ul>

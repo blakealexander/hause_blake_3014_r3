@@ -1,67 +1,38 @@
-<?php require_once('scripts/config.php');
-    if(empty($_POST['username']) || empty($_POST['password'])){
-        $message = 'Missing Requirements';
-    }else{
-        $username = $_POST['username'];
-        $password = $_POST['password'];
-        $message = login($username, $password);
-    }
+<?php 
+	require_once('scripts/config.php');
+	if(empty($_POST['username']) || empty($_POST['password'])){
+		$message = 'Missing Fields';
+	}else{
+		$username = $_POST['username'];
+		$password = $_POST['password'];
+		$ip = $_SERVER['REMOTE_ADDR'];
+
+		$message = login($username,$password,$ip);
+	}
 ?>
 
-
-<!DOCTYPE html>
-<html lang="en">
+<!doctype html>
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Admin Login</title>
+	<meta charset="UTF-8">
+	<title>Admin Login</title>
 </head>
 <body>
-
-    <?php if(!empty($message)):?>
-    <p><?php echo $message;?></p>
-    <?php endif;?>
-
-    <?php
- function auth()
- {
-     return 0;
- }
-    
- if(!empty($username) && !empty($password)){
-     if(!auth())
-      {
-          //Login attempts
-          $_SESSION['failed attempts'] += 1;
-          echo "Failed to log in. Attempt: {$_SESSION['failed attempts']} of 3.";
-      }
-     } else {
-     
-     }
-     if($_SESSION['failed attempts'] < 3)
-     {
- 
- ?>
-    <form action="adminlogin.php" method="post"> <!-- use post to keep username and pw private-->
-         <label for="username">Username:
-        <input type="text" name="username" value="" required>
-        </label>
-        <br>
-        <label for="password">Password:
-        <input type="password" name="password" value="" required>
-        </label>
-        <br>
-        <button type="submit">Submit</button>
-    </form>
-    
-    <?php
-} else {
-    echo "<br /> <b>Your account has been locked.</b>";
-    
-}
-?>
-
-
+	<?php if(!empty($message)):?>
+		<p><?php echo $message;?></p>
+	<?php endif;?>
+	<form action="adminlogin.php" method="post">
+		<label>Username:
+			<input type="text" name="username" value="" required>
+		</label>
+		<br>
+		<label>Password:
+			<input type="password" name="password" required>
+		</label>
+		<br>
+		<button type="submit">Submit</button>
+	</form><br><br>
+	<a href="admin_createuser.php">Create New User</a>
+	 <!-- create new user before logging in -->
 </body>
 </html>

@@ -1,3 +1,58 @@
+<?php
+require_once('scripts/config.php');
+confirm_logged_in();
+$id = $_SESSION['user_id']; //we put data into the session in the login.php file
+
+$tbl = 'tbl_user';
+$col = 'user_id';
+
+
+//TODO: Pull all user columns from tbl_user where user_id = $id
+// include('./scripts/connect.php');
+// $query = 'SELECT * FROM '.$tbl.' WHERE '.$col.' = '.$id;
+// $runQuery = $pdo->query($query);
+// $found_user = $runQuery->fetch(PDO::FETCH_ASSOC);
+// var_dump($found_user);
+// exit;
+
+$found_user_set = getSingle($tbl, $col, $id);
+if(is_string($found_user_set)){
+    $message = 'Failed to get user info!';
+}
+
+// $found_user = $found_user_set->fetch(PDO::FETCH_ASSOC);
+// var_dump($found_user);
+// exit;
+
+
+
+if(isset($_POST['submit'])){
+    $fname = trim($_POST['fname']);
+    $username = trim($_POST['username']);
+    $password = trim($_POST['password']);
+    $email = trim($_POST['email']);
+
+    //Validation
+    if(empty($username) || empty($password) || empty($email)) {
+        //ensure consistency between admin_createuser.php and admin_edituser.php
+        $message = 'Please fill the required fields';
+    }else{
+        //Do the edit
+        //how do we know the user's information? SESSION
+        $result = editUser($id,$fname,$username,$password,$email);
+		$message = $result;
+    }
+
+    // //setting time limit after user is created
+    // if((time() - $_SESSION['user_date']) > 2){
+    //     redirect_to('admin_login.php');
+    // }else{
+    //     $_SESSION['user_date'] = time(); 
+    //     redirect_to('index.php');
+    // }
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>

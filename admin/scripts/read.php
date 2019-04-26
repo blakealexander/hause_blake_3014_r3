@@ -27,15 +27,15 @@ function getSingle($tbl, $col, $value) {
 }
 function filterResults($tbl, $tbl_2, $tbl_3, $col, $col2, $col3, $filter) {
 	include('connect.php');
-	$queryFilter = 'SELECT * FROM '.$tbl. ' as a, ';
-	$queryFilter.= $tbl_2. ' as b, ';
-	$queryFilter.= $tbl_3. ' as c ';
-	$queryFilter.= 'WHERE a. ' .$col. ' = c. ' .$col;
-	$queryFilter.= ' AND b. ' .$col2. ' = c. ' .$col2;
-	$queryFilter.= ' AND b. ' .$col3. '= "' . $filter.'"';
-	$runFilter = $pdo->query($queryFilter);
-	if($runFilter){
-		return $runFilter;
+	$filterQuery = 'SELECT * FROM '.$tbl.' as a, ';
+	$filterQuery.= $tbl_2.' as b, ';
+	$filterQuery.= $tbl_3.' as c ';
+	$filterQuery.= 'WHERE a.'.$col.' = c.'.$col;
+	$filterQuery.= ' AND b.'.$col_2.' = c.'.$col_2;
+	$filterQuery.= ' AND b.'.$col_3.'= "'. $filter.'"';
+	$runQuery = $pdo->query($filterQuery);
+	if($runQuery){
+		return $runQuery;
 	}else{
 		$error = 'There was a problem';
 		return $error;
